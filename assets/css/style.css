@@ -1,0 +1,49 @@
+@font-face {
+    font-family: 'museoSans';
+    src: url(../fonts/MuseoSans_500.otf);
+}
+@font-face {
+    font-family: 'museoSans bold';
+    src: url(../fonts/MuseoSans_700.otf);
+}
+@font-face {
+    font-family: 'museoSans light';
+    src: url(../fonts/MuseoSans_300.otf);
+}
+:root{
+    --primaryColor: #00A19C;
+
+}
+*{
+    font-family: 'museoSans';
+}
+h4{
+    font-size: 2.25em;
+    color: var(--primaryColor);
+    font-weight: normal;
+}
+header{
+    background: #00A19C;
+    padding: 1.5em 2.625em;
+}
+.header-top-bar{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+.logo{
+    display: block;
+}
+.logo img{
+    max-width: 100%;
+}
+.header-bottom-logo{
+    width: 61.675%;
+}
+main{
+    margin-top: 3.5em;
+}
+.welcome{
+    font-size: 3.5em;
+    color: var(--primaryColor);
+    font-family: 'museoSans bold';
+}
