@@ -12,13 +12,26 @@
 }
 :root{
     --primaryColor: #00A19C;
-
 }
 *{
     font-family: 'museoSans';
 }
+body{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+main{
+    margin: auto 0;
+    padding: 1.25em;
+}
 h4{
     font-size: 2.25em;
+    color: var(--primaryColor);
+    font-weight: normal;
+}
+h5{
+    font-size: 1.85em;
     color: var(--primaryColor);
     font-weight: normal;
 }
@@ -30,6 +43,9 @@ header{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
+.header-top-bar div:nth-child(2){
+    place-self: center;
+}
 .logo{
     display: block;
 }
@@ -39,11 +55,146 @@ header{
 .header-bottom-logo{
     width: 61.675%;
 }
-main{
-    margin-top: 3.5em;
-}
+
 .welcome{
     font-size: 3.5em;
     color: var(--primaryColor);
     font-family: 'museoSans bold';
+}
+.game-btn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primaryColor);
+    border-radius: 3.15em 0 3.15em 0;
+    text-align: center;
+    padding: 1em 0;
+    height: 100%;
+}
+.game-btn img{
+    width: 75%;
+}
+.configure-btn{
+    padding: 10px 20px;
+    border: 2px solid var(--primaryColor);
+    border-radius: 0 1.25em 0 1.25em;
+    font-size: 1.75em;
+    color: var(--primaryColor);
+    text-decoration: none;
+    font-family: 'museoSans bold';
+    display: inline-block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.configure-btn img{
+    width: 1.25em;
+}
+.order-6 {
+    order: 6 !important;
+}
+footer{
+    margin-top: 1em;
+}
+.footer-line{
+    font-size: 2.05em;
+    color: var(--primaryColor);
+    font-family: 'museoSans bold';
+    margin: 1em 0;
+}
+.back-btn{
+    padding: 10px 20px;
+    background: white;
+    border-radius: 1.25em 0 1.25em 0;
+    border: none;
+    color: var(--primaryColor);
+    font-family: 'museoSans bold';
+    font-size: 1.25em;
+}
+.game-logo-header{
+    width: 45%;
+}
+.qr-code-outer{
+    padding: 0.95em;
+    border-radius: 1.55em 0 1.55em 0;
+    border: 3px solid var(--primaryColor);
+}
+.join-container{
+    border-bottom: 3px solid var(--primaryColor);
+    padding: 2em;
+}
+.player-names{
+    display: flex;
+    gap: 1em;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.player-names .name{
+    font-size: 1.85em;
+    padding: 0.35em 0.85em;
+    border-radius: 0.75em 0 0.75em 0;
+    border: 2px solid var(--primaryColor);
+    color: var(--primaryColor);
+    font-family: 'museoSans bold';
+}
+.play-btn{
+    font-size: 2.25em;
+    background: var(--primaryColor);
+    color: white;
+    border-radius: 25rem;
+    padding: 0.4em 1.4em;
+    font-family: 'museoSans bold';
+    border: none;
+}
+.code-form h4{
+    font-family: 'museoSans bold';
+}
+.code-form label{
+    font-family: 'museoSans bold';
+    font-size: 1.75em;
+    color: var(--primaryColor);
+}
+.code-form input{
+    font-size: 2.25em;
+    width: 100%;
+    border-radius: 25rem;
+    border: none;
+    background: white;
+    border: 2px solid var(--primaryColor);
+    padding: 0.4em 1.4em;
+    text-align: center;
+    color: var(--primaryColor);
+}
+.join-btn{
+    font-size: 2.25em;
+    background: white;
+    color: var(--primaryColor);
+    border-radius: 25rem;
+    padding: 0.4em 1.4em;
+    font-family: 'museoSans bold';
+    border: 2px solid var(--primaryColor);
+    isolation: isolate;
+    position: relative;
+}
+.join-btn::before{
+    background: var(--primaryColor);
+    position: absolute;
+    top: 5%;
+    left: -5%;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    border-radius: 25rem;
+}
+@media (min-width: 992px) {
+    .order-lg-6 {
+        order: 6 !important;
+    }
+}
+@media (max-width: 991px) {
+    body{
+        font-size: 12px;
+    }
+    .order-lg-6 {
+        order: 6 !important;
+    }
 }
