@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <title>DS Sustainability</title>
+    
+</head>
+<body class="color-bg">
+    <header>
+        <div class="header-top-bar">
+            <a href="index.html" class="logo">
+                <img src="assets/img/petronas-logo.svg" alt="Petronas logo">
+            </a>
+            <div></div>
+            <div>
+                <img src="assets/img/Sustainability-Connection-icon.svg" class="w-100" alt="">
+            </div>
+        </div>
+        
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-9 mx-auto px-0">
+                    <div class="game-container">
+                        <div class="game-time">
+                            02:59
+                        </div>
+                        <div class="social mt-5 mb-4">
+                            <h5>Social</h5>
+                            <p>Growth, Change, Empathy, Equity</p>
+                        </div>
+                        <div class="game">
+                            <span>Create</span>
+                            <span>Evolve</span>
+                            <span>Ethical</span>
+                            <span>Thrive</span>
+                            <span>Fair</span>
+                            <span>Expand</span>
+                            <span>Earth</span>
+                            <span>Green</span>
+                            <span>Clean</span>
+                            <span>Justice</span>
+                            <span>Eco</span>
+                            <span>Honest</span>
+                        </div>
+                        <div class="game-btns">
+                            <button class="deselect-btn">Deselect All</button>
+                            <button class="submit-btn">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="text-center">
+                <img src="assets/img/sustainability-text.svg"  class="mb-4 w-75" alt="">
+                <!-- <h3 class="footer-line">Passionate about Progress</h3> -->
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let gameTime = document.querySelector(".game-time")
+        let words = document.querySelectorAll(".game span")
+        let deselectBtn = document.querySelector(".deselect-btn")
+        let selectedWordsCount = 0
+        words.forEach(word => {
+            word.addEventListener("click",()=>{
+                if (word.classList.contains("active")) {
+                    word.classList.remove("active")
+                    selectedWordsCount--
+                } else{
+                    if (selectedWordsCount==4) {
+                        return
+                    } else{
+                        word.classList.add("active")
+                        selectedWordsCount++
+                    }
+                }
+
+            })
+        });
+        deselectBtn.addEventListener("click",()=>{
+            words.forEach(word => {
+                word.classList.remove("active")
+                selectedWordsCount = 0
+            });
+        })
+
+
+        let countdownTime = 180;
+
+        // Function to start the countdown
+        function startCountdown() {
+
+            // Update the timer every second
+            const countdownInterval = setInterval(() => {
+                // Calculate minutes and seconds
+                let minutes = Math.floor(countdownTime / 60);
+                let seconds = countdownTime % 60;
+
+                // Add a leading zero to seconds if less than 10
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                // Display the updated time
+                gameTime.textContent = `${minutes}:${seconds}`;
+
+                // Decrement the countdown time
+                countdownTime--;
+
+                // Check if the countdown has reached zero
+                if (countdownTime < 0) {
+                    clearInterval(countdownInterval);
+                    gameTime.textContent = "Time's up!";
+                }
+            }, 1000);
+        }
+
+        // Start the countdown when the page loads
+        window.onload = startCountdown;
+    </script>
+</body>
+</html>
