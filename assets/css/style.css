@@ -313,6 +313,24 @@ footer{
 .game-btns .submit-btn::before{
     content: 'Submit';
 }
+.hint-box h4:first-child{
+    font-family: 'museoSans bold';
+}
+.timer-container{
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: 3px solid var(--primaryColor);
+    border-radius: 3em 0 3em 0;
+    margin-top: 2.25em;
+}
+.main-time{
+    color: var(--primaryColor);
+    font-size: 6.25em;
+    text-align: center;
+}
 @media (min-width: 992px) {
     .order-lg-6 {
         order: 6 !important;
