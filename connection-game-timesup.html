@@ -29,14 +29,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-xxl-9 mx-auto">
-                    <div class="text-center hint-box">
-                        <h4>Hint</h4>
-                        <button class="play-btn show-hint">Show Hint</button>
-                        <h4 class="d-none">The answers can be found during today’s session.</h4>
+                    <div class="text-center">
+                        <h4>Time's Up!</h4>
                     </div>
                     <div class="timer-container">
-                        <h4>Time Left</h4>
-                        <div class="main-time">03:00</div>
+                        <button class="play-btn my-5">View Results</button>
                     </div>
                 </div>
             </div>
@@ -80,7 +77,6 @@
                 if (countdownTime < 0) {
                     clearInterval(countdownInterval);
                     gameTime.textContent = "Time's up!";
-                    window.lodation = "connection-game-timesup.html"
                 }
             }, 1000);
         }
