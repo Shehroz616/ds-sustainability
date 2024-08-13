@@ -145,6 +145,9 @@ footer{
     padding: 0.4em 1.4em;
     font-family: 'museoSans bold';
     border: none;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
 }
 .code-form h4{
     font-family: 'museoSans bold';
