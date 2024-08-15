@@ -25,6 +25,11 @@ main{
     margin: auto 0;
     padding: 1.25em;
 }
+h1{
+    color: var(--primaryColor);
+    font-size: 3.15em;
+    font-family: 'museoSans bold';
+}
 h4{
     font-size: 2.25em;
     color: var(--primaryColor);
@@ -330,6 +335,40 @@ footer{
     color: var(--primaryColor);
     font-size: 6.25em;
     text-align: center;
+}
+.leaderboard-desktop{
+    padding: 2em;
+    border: 3px solid var(--primaryColor);
+    border-radius: 3em 0 3em 0;
+    margin-top: 2.25em;
+}
+.leaderboard-desktop table{
+    width: 100%;
+    border-radius: 2em 2em 0 0;
+    overflow: hidden;
+}
+.leaderboard-desktop table tr{
+    border-bottom: 2px solid var(--primaryColor);
+}
+.leaderboard-desktop table td{
+    font-size: 1.85em;
+    color: var(--primaryColor);
+    padding: 0.75em;
+    border: none;
+    text-align: center;
+}
+.leaderboard-desktop table td:nth-child(2){
+    width: 35%;
+    text-align: left;
+}
+.leaderboard-desktop table tr:first-child{
+    background: linear-gradient(75deg, #763F98, #20419A, #00A19C, #BFD730, #FDB924);
+    border: none;
+}
+.leaderboard-desktop table tr:first-child td{
+    color: white;
+    font-family: 'museoSans bold';
+    font-size: 2.25em;
 }
 @media (min-width: 992px) {
     .order-lg-6 {
