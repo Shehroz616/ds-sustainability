@@ -80,9 +80,9 @@
                 if (countdownTime < 0) {
                     clearInterval(countdownInterval);
                     gameTime.textContent = "Time's up!";
-                    window.lodation = "connection-game-timesup.html"
+                    window.location = "connection-game-timesup.html"
                 }
-            }, 1000);
+            }, 100);
         }
 
         // Start the countdown when the page loads
