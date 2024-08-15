@@ -234,21 +234,20 @@ footer{
     color: var(--primaryColor);
     text-align: center;
 }
-.social{
-    background: #FDB924;
+.group-row{
     border-radius: 1.75em 0 1.75em 0;
     padding: 0.75em 2em;
     color: #414141;
     text-align: center;
     box-shadow: 1px 3px 4px rgba(0, 47, 46, 0.15) inset;
 }
-.social h5{
+.group-row h5{
     color: #414141;
     font-family: 'museoSans bold';
     font-weight: 900;
     margin: 0;
 }
-.social p{
+.group-row p{
     margin: 0;
     font-size: 1.15em;
 }
@@ -275,7 +274,7 @@ footer{
     transition: all .3s;
     cursor: pointer;
 }
-.game span.active{
+.game span.selected{
     background-color: var(--primaryColor);
     color: white;
 }
@@ -369,6 +368,70 @@ footer{
     color: white;
     font-family: 'museoSans bold';
     font-size: 2.25em;
+}
+.configure-page h4{
+    font-size: 2.0625em;
+    font-family: 'museoSans bold';
+}
+.edit-text-container{
+    border: 2px solid var(--primaryColor);
+    padding: 1.25em 2.125em 1.25em 3.125em;
+    border-radius: 25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+}
+.edit-text-container input{
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: var(--primaryColor);
+    font-size: 1.5625em;
+    width: calc(100% - 3.0625em);
+}
+.edit-text-container label{
+    width: 2.0625em;
+    cursor: pointer;
+}
+.connections-text-container{
+    padding: 1.375em;
+    box-shadow: unset;
+    margin-top: 1.75em;
+    margin-bottom: 1.75em;
+    border-radius: 1.5625em 0 1.5625em 0;
+}
+.connections-text-container h4{
+    color: white;
+    text-align: center;
+}
+.all-edit-text-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.875em;
+}
+.connections-text-container .edit-text-container{
+    padding: 0.625em 1.5625em;
+}
+.connections-text-container .edit-text-container img{
+    width: 1.75em;
+}
+.connections-text-container .edit-text-container input{
+    width: calc(100% - 2.75em);
+}
+.social{
+    background-color: #FDB924;
+}
+.governance{
+    background-color: #763F98;
+}
+.environment{
+    background-color: #BFD730;
+}
+.economy{
+    background-color: #20419A;
 }
 @media (min-width: 992px) {
     .order-lg-6 {
