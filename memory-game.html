@@ -349,6 +349,7 @@
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
+
         const database = firebase.database();
         const timerElement = document.getElementById('timer');
         let countdownDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
@@ -390,40 +391,40 @@
         const cards = document.querySelectorAll('.memory-card-inner');
         const cardsOuter = document.querySelectorAll('.memory-card');
         let gameTime = document.querySelector(".game-time")
-        let countdownTime = 35;
+        // let countdownTime = 35;
         let seen = false
-        function startCountdown() {
+        // function startCountdown() {
 
-            const countdownInterval = setInterval(() => {
-                let minutes = Math.floor(countdownTime / 60);
-                let seconds = countdownTime % 60;
+        //     const countdownInterval = setInterval(() => {
+        //         let minutes = Math.floor(countdownTime / 60);
+        //         let seconds = countdownTime % 60;
 
-                seconds = seconds < 10 ? '0' + seconds : seconds;
+        //         seconds = seconds < 10 ? '0' + seconds : seconds;
 
-                gameTime.textContent = `${minutes}:${seconds}`;
+        //         gameTime.textContent = `${minutes}:${seconds}`;
 
-                countdownTime--;
+        //         countdownTime--;
 
-                if (countdownTime < 0) {
-                    if (!seen) {
-                        countdownTime = 120
-                        startCountdown()
-                        cards.forEach(card => {
-                            card.classList.remove("flip")
-                            card.style.pointerEvents = "auto"
-                        });
-                        seen = true
-                    }
-                    else {
-                        clearInterval(countdownInterval);
-                        gameTime.textContent = "Time's up!";
-                    }
+        //         if (countdownTime < 0) {
+        //             if (!seen) {
+        //                 countdownTime = 120
+        //                 startCountdown()
+        //                 cards.forEach(card => {
+        //                     card.classList.remove("flip")
+        //                     card.style.pointerEvents = "auto"
+        //                 });
+        //                 seen = true
+        //             }
+        //             else {
+        //                 clearInterval(countdownInterval);
+        //                 gameTime.textContent = "Time's up!";
+        //             }
 
-                }
-            }, 1000);
-        }
+        //         }
+        //     }, 1000);
+        // }
 
-        window.onload = startCountdown;
+        // window.onload = startCountdown;
 
 
 

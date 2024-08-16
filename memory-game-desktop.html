@@ -50,49 +50,95 @@
     </footer>
 
 
-    <script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
 
-        let showHint = document.querySelector(".show-hint")
-        let gameTime = document.querySelector(".main-time")
-        let countdownTime = 35;
-        let seen = false
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3E8YOuJONoWtX1UZE_SC86RJDDVWBUNc",
+            authDomain: "ds-sustainiblity.firebaseapp.com",
+            projectId: "ds-sustainiblity",
+            storageBucket: "ds-sustainiblity.appspot.com",
+            messagingSenderId: "37104828237",
+            appId: "1:37104828237:web:3f2d6c2b9857bfb058c104"
+        };
 
-        // Function to start the countdown
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+a
+        const database = firebase.database();
+        const timerElement = document.querySelector('.main-time');
+        let countdownDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
+        let startTime = null;
+
+        // Start the countdown
         function startCountdown() {
+            startTime = new Date().getTime();
+            database.ref('timer/startTime').set(startTime);
 
-            // Update the timer every second
-            const countdownInterval = setInterval(() => {
-                // Calculate minutes and seconds
-                let minutes = Math.floor(countdownTime / 60);
-                let seconds = countdownTime % 60;
-
-                // Add a leading zero to seconds if less than 10
-                seconds = seconds < 10 ? '0' + seconds : seconds;
-
-                // Display the updated time
-                gameTime.textContent = `${minutes}:${seconds}`;
-
-                // Decrement the countdown time
-                countdownTime--;
-
-                // Check if the countdown has reached zero
-                if (countdownTime < 0) {
-                    if (!seen) {
-                        countdownTime = 120
-                        startCountdown()
-                        seen = true
-                    }
-                    else {
-                        clearInterval(countdownInterval);
-                        gameTime.textContent = "Time's up!";
-                    }
-                    window.location = "/memory-game-timesup"
-                }
-            }, 1000);
+            updateTimer();
         }
 
-        // Start the countdown when the page loads
-        window.onload = startCountdown;
+        function updateTimer() {
+            database.ref('timer/startTime').on('value', (snapshot) => {
+                startTime = snapshot.val();
+
+                const now = new Date().getTime();
+                const distance = countdownDuration - (now - startTime);
+
+                if (distance < 0) {
+                    timerElement.innerHTML = "00:00";
+                } else {
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timerElement.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            });
+
+            setTimeout(updateTimer, 1000);
+        }
+
+        startCountdown();
+
+
+
+        // let showHint = document.querySelector(".show-hint")
+        // let gameTime = document.querySelector(".main-time")
+        // let countdownTime = 35;
+        // let seen = false
+
+        // function startCountdown() {
+
+        //     const countdownInterval = setInterval(() => {
+        //         let minutes = Math.floor(countdownTime / 60);
+        //         let seconds = countdownTime % 60;
+
+        //         seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        //         gameTime.textContent = `${minutes}:${seconds}`;
+
+        //         countdownTime--;
+
+        //         if (countdownTime < 0) {
+        //             if (!seen) {
+        //                 countdownTime = 120
+        //                 startCountdown()
+        //                 seen = true
+        //             }
+        //             else {
+        //                 clearInterval(countdownInterval);
+        //                 gameTime.textContent = "Time's up!";
+        //             }
+        //             window.location = "/memory-game-timesup"
+        //         }
+        //     }, 1000);
+        // }
+
+        // window.onload = startCountdown;
 
 
         showHint.addEventListener("click",()=>{
