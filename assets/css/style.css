@@ -427,15 +427,127 @@ footer{
 .governance{
     background-color: #763F98;
 }
+.governance h5{
+    color: white;
+}
 .environment{
     background-color: #BFD730;
 }
 .economy{
     background-color: #20419A;
 }
+.leaderboard-container{
+    background: #F5F5F5;
+    border-radius: 2.25em 0 2.25em 0;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.20);
+    padding: 1.75em;
+}
+.leaderboard-heading{
+    font-size: 2.0825em;
+    color: white;
+    text-align: center;
+    font-family: 'museoSans bold';
+    padding: 0.45em;
+    background-color: var(--primaryColor);
+    border-radius: 1.75em 0 1.75em 0;
+}
+.leaderboard-row{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+    padding: 0.75em 1.4em;
+    border-top: 2px solid var(--primaryColor);
+}
+.leaderboard-row:first-child{
+    border: none;
+}
+.leaderboard-row:last-child{
+    border-bottom: 2px solid var(--primaryColor);
+}
+.leaderboard-data{
+    margin-top: 0.5em;
+    
+}
+.leaderboard-row div{
+    color: var(--primaryColor);
+    font-size: 1.5em;
+}
+.leaderboard-row div:last-child{
+    text-align: end;
+}
+.leaderboard-row.active{
+    background: linear-gradient(75deg, #763F98, #20419A, #00A19C, #BFD730, #FDB924);
+    border-radius: 1.75em 0 1.75em 0;
+    border: none;
+}
+.leaderboard-row.active +.leaderboard-row{
+    border: none;
+}
+.leaderboard-row.active div{
+    color: white;
+    font-size: 2em;
+    font-family: 'museoSans bold';
+}
+.memory-game{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    place-items: center;
+    row-gap: 0.85em;
+    column-gap: 0.4125em;
+}
+.memory-card{
+    border: 1px solid var(--primaryColor);
+    border-radius: 0.85em 0 0.85em 0;
+    width: 100%;
+    overflow: hidden;
+}
+.memory-card-inner {
+    aspect-ratio: 1.21 / 1;
+    transition: transform .5s;
+    position: relative;
+    width: 100%;
+    transform-style: preserve-3d;
+}
+.front-face {
+    position: absolute;
+    backface-visibility: hidden;
+    aspect-ratio: 1.21 / 1;
+    width: 100%;
+    right: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primaryColor);
+    box-shadow: 1px 3px 4px rgba(0, 47, 46, 0.15) inset;
+}
+.back-face {
+    border-radius: 8px;
+    transform: rotateX(180deg);
+    position: absolute;
+    backface-visibility: hidden;
+    width: 100%;
+    left: 0;
+    top: 0;
+    aspect-ratio: 1.21 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.memory-card-inner.flip {
+    transform: rotateX(180deg);
+}
+.back-face img{
+    height: 60%;
+}
 @media (min-width: 992px) {
     .order-lg-6 {
         order: 6 !important;
+    }
+}
+@media (max-width: 1200px) {
+    body{
+        font-size: 14px;
     }
 }
 @media (max-width: 991px) {
