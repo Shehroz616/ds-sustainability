@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +8,9 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
     <title>DS Sustainability</title>
-    
+
 </head>
+
 <body class="color-bg">
     <header>
         <div class="header-top-bar">
@@ -20,7 +22,7 @@
                 <img src="assets/img/memory-match-icon.svg" class="w-100" alt="">
             </div>
         </div>
-        
+
     </header>
     <main>
         <div class="container">
@@ -311,7 +313,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -321,12 +323,69 @@
     <footer>
         <div class="container">
             <div class="text-center">
-                <img src="assets/img/sustainability-text.svg"  class="mb-4 w-75" alt="">
+                <img src="assets/img/sustainability-text.svg" class="mb-4 w-75" alt="">
                 <!-- <h3 class="footer-line">Passionate about Progress</h3> -->
             </div>
         </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3E8YOuJONoWtX1UZE_SC86RJDDVWBUNc",
+            authDomain: "ds-sustainiblity.firebaseapp.com",
+            projectId: "ds-sustainiblity",
+            storageBucket: "ds-sustainiblity.appspot.com",
+            messagingSenderId: "37104828237",
+            appId: "1:37104828237:web:3f2d6c2b9857bfb058c104"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const timerElement = document.getElementById('timer');
+        let countdownDuration = 3 * 60 * 1000; // 3 minutes in milliseconds
+        let startTime = null;
+
+        // Start the countdown
+        function startCountdown() {
+            startTime = new Date().getTime();
+            database.ref('timer/startTime').set(startTime);
+
+            updateTimer();
+        }
+
+        // Update the countdown every second
+        function updateTimer() {
+            database.ref('timer/startTime').on('value', (snapshot) => {
+                startTime = snapshot.val();
+
+                const now = new Date().getTime();
+                const distance = countdownDuration - (now - startTime);
+
+                if (distance < 0) {
+                    timerElement.innerHTML = "00:00";
+                } else {
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    timerElement.innerHTML = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                }
+            });
+
+            setTimeout(updateTimer, 1000);
+        }
+
+        // Call this function when you want to start the countdown
+        startCountdown();
+    </script>
     <script>
         const cards = document.querySelectorAll('.memory-card-inner');
         const cardsOuter = document.querySelectorAll('.memory-card');
@@ -347,7 +406,7 @@
 
                 if (countdownTime < 0) {
                     if (!seen) {
-                        countdownTime = 180
+                        countdownTime = 120
                         startCountdown()
                         cards.forEach(card => {
                             card.classList.remove("flip")
@@ -355,11 +414,11 @@
                         });
                         seen = true
                     }
-                    else{
+                    else {
                         clearInterval(countdownInterval);
                         gameTime.textContent = "Time's up!";
                     }
-                    
+
                 }
             }, 1000);
         }
@@ -367,70 +426,71 @@
         window.onload = startCountdown;
 
 
-   
+
         cards.forEach(card => {
             card.classList.add("flip")
             card.style.pointerEvents = "none"
         });
 
-let gameEnd = false
-let score = 0
-let hasFlippedCard = false;
-let lockBoard = false;
-let firstCard, secondCard;
+        let gameEnd = false
+        let score = 0
+        let hasFlippedCard = false;
+        let lockBoard = false;
+        let firstCard, secondCard;
 
-function flipCard() {
-    if (lockBoard) return;
-    if (this === firstCard) return;
-    this.classList.add('flip');
+        function flipCard() {
+            if (lockBoard) return;
+            if (this === firstCard) return;
+            this.classList.add('flip');
 
-    if (!hasFlippedCard) {
-        hasFlippedCard = true;
-        firstCard = this;
-        return;
-    }
+            if (!hasFlippedCard) {
+                hasFlippedCard = true;
+                firstCard = this;
+                return;
+            }
 
-    secondCard = this;
+            secondCard = this;
 
-    checkForMatch();
-}
+            checkForMatch();
+        }
 
 
-function checkForMatch() {
-    let isMatch = firstCard.dataset.product === secondCard.dataset.product;
-    isMatch ? disableCards() : unflipCards();
-    isMatch ? score++ : null;
-}
+        function checkForMatch() {
+            let isMatch = firstCard.dataset.product === secondCard.dataset.product;
+            isMatch ? disableCards() : unflipCards();
+            isMatch ? score++ : null;
+        }
 
-function disableCards() {
-    firstCard.removeEventListener('click', flipCard);
-    secondCard.removeEventListener('click', flipCard);
-    resetBoard();
-}
+        function disableCards() {
+            firstCard.removeEventListener('click', flipCard);
+            secondCard.removeEventListener('click', flipCard);
+            resetBoard();
+        }
 
-function unflipCards() {
-    lockBoard = true;
-    setTimeout(() => {
-        firstCard.classList.remove('flip');
-        secondCard.classList.remove('flip');
-        resetBoard();
-    }, 500);
-}
-function resetBoard() {
-    [hasFlippedCard, lockBoard] = [false, false];
-    [firstCard, secondCard] = [null, null];
-}
+        function unflipCards() {
+            lockBoard = true;
+            setTimeout(() => {
+                firstCard.classList.remove('flip');
+                secondCard.classList.remove('flip');
+                resetBoard();
+            }, 500);
+        }
+        function resetBoard() {
+            [hasFlippedCard, lockBoard] = [false, false];
+            [firstCard, secondCard] = [null, null];
+        }
 
-(function shuffle() {
-    cardsOuter.forEach(cardout => {
-        let ramdomPos = Math.floor(Math.random() * 12);
-        cardout.style.order = ramdomPos;
-    });
-})();
+        (function shuffle() {
+            cardsOuter.forEach(cardout => {
+                let ramdomPos = Math.floor(Math.random() * 12);
+                cardout.style.order = ramdomPos;
+            });
+        })();
 
-cards.forEach(card => card.addEventListener('click', flipCard));
+        cards.forEach(card => card.addEventListener('click', flipCard));
 
-   
+
     </script>
 </body>
+
 </html>
