@@ -80,14 +80,13 @@
                     if (!seen) {
                         countdownTime = 120
                         startCountdown()
-                        
                         seen = true
                     }
                     else {
                         clearInterval(countdownInterval);
                         gameTime.textContent = "Time's up!";
                     }
-                    window.location = "/connection-game-timesup"
+                    window.location = "/memory-game-timesup"
                 }
             }, 1000);
         }
