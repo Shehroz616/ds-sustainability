@@ -382,7 +382,7 @@ footer{
     justify-content: space-between;
     background-color: white;
 }
-.edit-text-container input{
+.edit-text-container input,.edit-text-container textarea{
     padding: 0;
     border: none;
     outline: none;
@@ -540,6 +540,40 @@ footer{
 .back-face img{
     height: 60%;
 }
+.memroy-images-container{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 1.5em;
+    row-gap: 2.375em;
+    margin-top: 2.375em;
+}
+.upload-box{
+    border: 2px solid var(--primaryColor);
+    border-radius: 1.25em 0 1.25em 0;
+    overflow: hidden;
+}
+.uploaded-image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 1/0.55;
+    cursor: pointer;
+}
+.uploaded-image img{
+    height: 80%;
+}
+.upload-text{
+    background: var(--primaryColor);
+    display: flex;
+    justify-content: space-between;
+    padding: 0.95em;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+}
+.upload-text img{
+    width: 1.375em;
+}
 @media (min-width: 992px) {
     .order-lg-6 {
         order: 6 !important;
@@ -559,5 +593,8 @@ footer{
     }
     header{
         padding: 1.25em 1.625em;
+    }
+    .memroy-images-container{
+        grid-template-columns: repeat(2, 1fr);
     }
 }
