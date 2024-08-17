@@ -118,6 +118,7 @@ footer{
 }
 .game-logo-header{
     width: 45%;
+    max-height: 8em;
 }
 .qr-code-outer{
     padding: 0.95em;
@@ -573,6 +574,39 @@ footer{
 }
 .upload-text img{
     width: 1.375em;
+}
+.fact-container h4{
+    font-family: 'museoSans bold';
+}
+.tf-game-container{
+    position: relative;
+}
+.tf-game-container .game-time{
+    color: white;
+}
+.true-box,.false-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid white;
+    border-radius: 2.5em 0 2.5em 0;
+    aspect-ratio: 1/0.65;
+    margin-bottom: 1.5em;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+}
+.true-box img,
+.false-box img{
+    width: 80%;
+}
+.false-box{
+    margin: 0;
+}
+.or{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 6em;
+    transform: translate(-50%, -50%);
 }
 @media (min-width: 992px) {
     .order-lg-6 {

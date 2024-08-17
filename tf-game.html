@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+    <title>DS Sustainability</title>
+
+</head>
+
+<body class="color-bg">
+    <header>
+        <div class="header-top-bar">
+            <a href="index.html" class="logo">
+                <img src="assets/img/petronas-logo.svg" alt="Petronas logo">
+            </a>
+            <div></div>
+            <div>
+                <img src="assets/img/true-false-icon.svg" class="w-100" alt="">
+            </div>
+        </div>
+
+    </header>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-xxl-9 mx-auto px-0">
+                    <div class="tf-game-container">
+                        <div class="game-time">
+                            02:59
+                        </div>
+                    </div>
+                    <div class="tf-game-container">
+                        <label class="true-box">
+                            <img src="assets/img/true-icon.svg" alt="">
+                            <input type="radio" class="question-radio" hidden name="question-1">
+                        </label>
+                        <img src="assets/img/or-icon.svg" class="or" alt="">
+                        <label class="false-box">
+                            <img src="assets/img/false-icon.svg" alt="">
+                            <input type="radio" class="question-radio" hidden name="question-1">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="text-center">
+                <img src="assets/img/sustainability-text.svg" class="mb-4 w-75" alt="">
+                <!-- <h3 class="footer-line">Passionate about Progress</h3> -->
+            </div>
+        </div>
+    </footer>
+    <script>
+        const cards = document.querySelectorAll('.memory-card-inner');
+        const cardsOuter = document.querySelectorAll('.memory-card');
+        let gameTime = document.querySelector(".game-time")
+        let countdownTime = 25;
+        let seen = false
+        function startCountdown() {
+
+            const countdownInterval = setInterval(() => {
+                let minutes = Math.floor(countdownTime / 60);
+                let seconds = countdownTime % 60;
+
+                seconds = seconds < 10 ? '0' + seconds : seconds;
+
+                gameTime.textContent = `${minutes}:${seconds}`;
+
+                countdownTime--;
+
+                if (countdownTime < 0) {
+                    if (!seen) {
+                        countdownTime = 120
+                        startCountdown()
+                        cards.forEach(card => {
+                            card.classList.remove("flip")
+                            card.style.pointerEvents = "auto"
+                        });
+                        seen = true
+                    }
+                    else {
+                        clearInterval(countdownInterval);
+                        gameTime.textContent = "Time's up!";
+                    }
+
+                }
+            }, 1000);
+        }
+
+        window.onload = startCountdown;
+
+
+        let radios =  document.querySelectorAll(".question-radio")
+        radios.forEach(radio => {
+            radio.addEventListener("change",()=>{
+                radios.forEach(r => {
+                    r.parentElement.style.pointerEvents = "none"
+                    r.parentElement.style.opacity = "0.5"
+
+                });
+                radio.parentElement.style.borderColor = "#FDB924"
+                radio.parentElement.style.borderWidth = "10px"
+                radio.parentElement.style.pointerEvents = "none"
+                radio.parentElement.style.opacity = "1"
+            })
+        });
+
+    </script>
+</body>
+
+</html>
