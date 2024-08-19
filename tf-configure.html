@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon" />
+    <title>DS Sustainability</title>
+</head>
+
+<body>
+    <header>
+        <div class="header-top-bar">
+            <a href="index.html" class="logo">
+                <img src="assets/img/petronas-logo.svg" alt="Petronas logo" />
+            </a>
+            <div class="text-center">
+                <img src="assets/img/sustainability-text.svg" class="header-bottom-logo" alt="" />
+            </div>
+            <div class="text-end">
+                <button class="back-btn">Back</button>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <img src="assets/img/Sustainability-Connection-header.svg" class="game-logo-header" alt="" />
+        </div>
+    </header>
+    <main>
+        <div class="container configure-page">
+            <div class="row">
+                <div class="col-xxl-12 mx-auto">
+                    <div class="text-center">
+                        <h4>Instructions</h4>
+                    </div>
+                    <div class="edit-text-container">
+                        <p contenteditable id="instruction">
+                            You have 25 seconds to read each fact displayed here and answer
+                            whether it is True or False
+                        </p>
+
+                        <label for="instruction">
+                            <img src="assets/img/edit-icon.svg" class="w-100" alt="" />
+                        </label>
+                    </div>
+                    <div class="all-question-data"></div>
+                    <button class="new-fact-btn">
+                        <span>+ New Fact</span> (Up to 15)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="text-center">
+                <img src="assets/img/footer-logo.svg" class="footer-logo" alt="" />
+                <h3 class="footer-line">Passionate about Progress</h3>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let allQuestions = {
+            question1: {
+                question:
+                    "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+                answer: "true",
+            },
+            question2: {
+                question:
+                    "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+                answer: "false",
+            },
+        };
+
+        let container = document.querySelector(".all-question-data");
+        let questionCount = Object.keys(allQuestions).length; // Count existing questions
+        let allRadios = document.querySelectorAll("input[type='radio']");
+
+        // Function to render the question
+        function renderQuestion(questionData, factNumber) {
+            let factHTML = `
+    <div class="add-fact-container mt-5" data-question-id="question${factNumber}">
+        <div>
+            <h4>Fact #${factNumber}</h4>
+            <div class="edit-text-container">
+                <p contentEditable id="instruction">${questionData.question}</p>
+                <label for="instruction">
+                    <img src="assets/img/edit-icon.svg" class="w-100" alt="">
+                </label>
+            </div>
+        </div>
+        <div class="t-ot-f-container">
+            <h4>True or False</h4>
+            <div class="t-or-f">
+                <label class="true">
+                    True
+                    <input type="radio" ${questionData.answer === "true" ? "checked" : ""
+                } hidden name="radio${factNumber}" value="true">
+                </label>
+                <label class="false">
+                    False
+                    <input type="radio" ${questionData.answer === "false" ? "checked" : ""
+                } hidden name="radio${factNumber}" value="false">
+                </label>
+            </div>
+        </div>
+    </div>
+    `;
+            container.innerHTML += factHTML;
+            allRadios = document.querySelectorAll("input[type='radio']");
+            tfBg();
+        }
+
+        // Render existing questions
+        let factNumber = 1; // Start numbering from 1
+
+        for (let key in allQuestions) {
+            if (allQuestions.hasOwnProperty(key)) {
+                renderQuestion(allQuestions[key], factNumber);
+                factNumber++; // Increment the fact number after rendering each question
+            }
+        }
+
+        // Function to update the allQuestions object
+        function updateQuestionObject(factNumber, newQuestion, newAnswer) {
+            let questionKey = `question${factNumber}`;
+            if (allQuestions[questionKey]) {
+                if (newQuestion !== undefined) {
+                    allQuestions[questionKey].question = newQuestion;
+                }
+                if (newAnswer !== undefined) {
+                    allQuestions[questionKey].answer = newAnswer;
+                }
+            }
+        }
+
+        // Add event listener to the container for delegating events
+        container.addEventListener("input", function (event) {
+            let target = event.target;
+            let parentContainer = target.closest(".add-fact-container");
+            if (parentContainer) {
+                let factNumber = parentContainer
+                    .getAttribute("data-question-id")
+                    .replace("question", "");
+
+                // Update question text
+                if (target.tagName.toLowerCase() === "p") {
+                    updateQuestionObject(factNumber, target.innerText, undefined);
+                    target.nextElementSibling.firstElementChild.src = "assets/img/circle-check.svg";
+                    target.nextElementSibling.firstElementChild.classList.add("unsave");
+                }
+
+                // Update answer
+                if ( target.tagName.toLowerCase() === "input" && target.type === "radio" ) {
+                    updateQuestionObject(factNumber, undefined, target.value);
+                    let nearestIcon = parentContainer.querySelector("img")
+                    nearestIcon.src = "assets/img/circle-check.svg"
+                    nearestIcon.classList.add("unsave");
+                }
+            }
+        });
+
+        container.addEventListener("click", function (event) {
+            let target = event.target;
+            let parentContainer = target.closest(".add-fact-container");
+            let allRadios = parentContainer.querySelectorAll("input[type='radio']");
+            let isAnyRadioChecked = Array.from(allRadios).some(
+                (radio) => radio.checked
+            );
+            if (
+                target.tagName.toLowerCase() === "img" &&
+                target.classList.contains("unsave")
+            ) {
+                if (target.parentElement.previousElementSibling.innerText == "") {
+                    alert("Question cannot be empty");
+                    return;
+                }
+
+                if (!isAnyRadioChecked) {
+                    alert("Please set the answer");
+                    return;
+                }
+
+                target.classList.remove("unsave");
+                target.src = "assets/img/edit-icon.svg";
+
+                // firbase
+            }
+        });
+
+        // Add new question on button click
+        document
+            .querySelector(".new-fact-btn")
+            .addEventListener("click", function () {
+                if (questionCount < 15) {
+                    // Limit to 15 facts
+                    questionCount++; // Increment question count to include the new question
+                    let newQuestion = {
+                        question: "",
+                        answer: "",
+                    };
+                    let newQuestionKey = `question${questionCount}`;
+                    allQuestions[newQuestionKey] = newQuestion;
+
+                    renderQuestion(newQuestion, questionCount); // Render the new question
+                    console.log(allQuestions);
+                } else {
+                    alert("You can add up to 15 facts only.");
+                }
+            });
+
+        function tfBg() {
+            allRadios.forEach((radio) => {
+                if (radio.checked) {
+                    radio.parentElement.classList.add("active");
+                }
+                radio.addEventListener("change", () => {
+                    let allLabels =
+                        radio.parentElement.parentElement.querySelectorAll("label");
+                    allLabels.forEach((label) => {
+                        label.classList.remove("active");
+                    });
+                    radio.parentElement.classList.add("active");
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

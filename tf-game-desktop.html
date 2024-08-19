@@ -53,11 +53,28 @@
 
     <script>
       
+      let allQuestions = {
+            question1: {
+                question: "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+                answer: "true",
+            },
+            question2: {
+                question: "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+                answer: "false",
+            },
+            question3: {
+                question: "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+                answer: "true",
+            },
+        };
 
-
-        let showHint = document.querySelector(".show-hint")
+        let questionCount = 1;
+        let loop = 0;
+        for (let key in allQuestions) {
+            loop++;
+        }
         let gameTime = document.querySelector(".main-time")
-        let countdownTime = 35;
+        let countdownTime = 25;
         let seen = false
 
         function startCountdown() {
@@ -74,9 +91,14 @@
 
                 if (countdownTime < 0) {
                     if (!seen) {
-                        countdownTime = 120
+                        clearInterval(countdownInterval);
+                        loop--;
+                        questionCount++
+                        countdownTime = 25
                         startCountdown()
-                        seen = true
+                        if (loop == 1) {
+                            seen = true;
+                        }
                     }
                     else {
                         clearInterval(countdownInterval);

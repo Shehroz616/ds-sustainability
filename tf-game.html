@@ -30,18 +30,18 @@
                 <div class="col-xxl-9 mx-auto px-0">
                     <div class="tf-game-container">
                         <div class="game-time">
-                            02:59
+                            00:25
                         </div>
                     </div>
                     <div class="tf-game-container">
                         <label class="true-box">
                             <img src="assets/img/true-icon.svg" alt="">
-                            <input type="radio" class="question-radio" hidden name="question-1">
+                            <input type="radio" class="question-radio" value="true"  data-question="question1" hidden name="question-1">
                         </label>
                         <img src="assets/img/or-icon.svg" class="or" alt="">
                         <label class="false-box">
                             <img src="assets/img/false-icon.svg" alt="">
-                            <input type="radio" class="question-radio" hidden name="question-1">
+                            <input type="radio" class="question-radio" value="false" data-question="question1" hidden name="question-1">
                         </label>
                     </div>
                 </div>
@@ -57,59 +57,112 @@
         </div>
     </footer>
     <script>
-        const cards = document.querySelectorAll('.memory-card-inner');
-        const cardsOuter = document.querySelectorAll('.memory-card');
-        let gameTime = document.querySelector(".game-time")
-        let countdownTime = 25;
-        let seen = false
-        function startCountdown() {
 
-            const countdownInterval = setInterval(() => {
-                let minutes = Math.floor(countdownTime / 60);
-                let seconds = countdownTime % 60;
+let score = 0;
+let allQuestions = {
+    question1: {
+        question: "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+        answer: "true",
+    },
+    question2: {
+        question: "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+        answer: "false",
+    },
+    question3: {
+        question: "You have 25 seconds to read each fact displayed here and answer whether it is True or False",
+        answer: "true",
+    },
+};
 
-                seconds = seconds < 10 ? '0' + seconds : seconds;
+let loop = 0;
+for (let key in allQuestions) {
+    loop++;
+}
 
-                gameTime.textContent = `${minutes}:${seconds}`;
+const cards = document.querySelectorAll('.memory-card-inner');
+const cardsOuter = document.querySelectorAll('.memory-card');
+let gameTime = document.querySelector(".game-time");
+let countdownTime = 25;
+let consumeTime = -1;
+let consumedTime = 0;
+let questionCount = 1;
+let checkRadio = false
+let seen = false;
 
-                countdownTime--;
+function startCountdown() {
 
-                if (countdownTime < 0) {
-                    if (!seen) {
-                        countdownTime = 120
-                        startCountdown()
-                        cards.forEach(card => {
-                            card.classList.remove("flip")
-                            card.style.pointerEvents = "auto"
-                        });
-                        seen = true
-                    }
-                    else {
-                        clearInterval(countdownInterval);
-                        gameTime.textContent = "Time's up!";
-                    }
+    const countdownInterval = setInterval(() => {
+        let minutes = Math.floor(countdownTime / 60);
+        let seconds = countdownTime % 60;
 
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        gameTime.textContent = `${minutes}:${seconds}`;
+
+        countdownTime--;
+        consumeTime++;
+        if (countdownTime < 0) {
+            if (!seen) {
+                clearInterval(countdownInterval);
+                loop--;
+                countdownTime = 25;
+                if (!checkRadio) {
+                    consumedTime += consumeTime;
+                    checkRadio = false
                 }
-            }, 1000);
+                consumeTime = -1;
+                questionCount++
+                startCountdown();
+                let radios = document.querySelectorAll(".question-radio");
+                radios.forEach(radio => {
+                    radio.parentElement.style.pointerEvents = "unset";
+                    radio.parentElement.style.opacity = "1";
+                    radio.parentElement.style.borderColor = "#FFF";
+                    radio.parentElement.style.borderWidth = "5px";
+                    radio.checked = false
+                    radio.setAttribute("data-question",`question${questionCount}`)
+                });
+                if (loop == 1) {
+                    seen = true;
+                }
+            } else {
+                clearInterval(countdownInterval);
+                gameTime.textContent = "Time's up!";
+                consumedTime += consumeTime;
+            }
+
+        }
+    }, 1000);
+}
+
+window.onload = startCountdown;
+
+let radios = document.querySelectorAll(".question-radio");
+radios.forEach(radio => {
+    radio.addEventListener("change", () => {
+        radios.forEach(r => {
+            r.parentElement.style.pointerEvents = "none";
+            r.parentElement.style.opacity = "0.5";
+        });
+
+        radio.parentElement.style.borderColor = "#FDB924";
+        radio.parentElement.style.borderWidth = "10px";
+        radio.parentElement.style.pointerEvents = "none";
+        radio.parentElement.style.opacity = "1";
+
+        // Check if the selected answer is correct
+        let questionKey = radio.getAttribute('data-question');
+        let userAnswer = radio.value;
+
+        if (allQuestions[questionKey].answer === userAnswer) {
+            score++;
+            checkRadio = true
         }
 
-        window.onload = startCountdown;
+        consumedTime += consumeTime;
+    });
+});
 
-
-        let radios =  document.querySelectorAll(".question-radio")
-        radios.forEach(radio => {
-            radio.addEventListener("change",()=>{
-                radios.forEach(r => {
-                    r.parentElement.style.pointerEvents = "none"
-                    r.parentElement.style.opacity = "0.5"
-
-                });
-                radio.parentElement.style.borderColor = "#FDB924"
-                radio.parentElement.style.borderWidth = "10px"
-                radio.parentElement.style.pointerEvents = "none"
-                radio.parentElement.style.opacity = "1"
-            })
-        });
 
     </script>
 </body>

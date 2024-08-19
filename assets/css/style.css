@@ -376,14 +376,15 @@ footer{
 }
 .edit-text-container{
     border: 2px solid var(--primaryColor);
-    padding: 1.25em 2.125em 1.25em 3.125em;
-    border-radius: 25rem;
+    padding: 1.20em 2.125em 1.20em 3.125em;
+    border-radius: 3.125em;
     display: flex;
     align-items: center;
     justify-content: space-between;
     background-color: white;
 }
-.edit-text-container input,.edit-text-container textarea{
+.edit-text-container input,
+.edit-text-container p{
     padding: 0;
     border: none;
     outline: none;
@@ -391,6 +392,8 @@ footer{
     color: var(--primaryColor);
     font-size: 1.5625em;
     width: calc(100% - 3.0625em);
+    margin: 0;
+    line-height: 1.2;
 }
 .edit-text-container label{
     width: 2.0625em;
@@ -607,6 +610,59 @@ footer{
     left: 50%;
     width: 6em;
     transform: translate(-50%, -50%);
+}
+.add-fact-container{
+    display: flex;
+    align-items: center;
+}
+.add-fact-container div:first-child{
+    width: 100%;
+}
+.t-ot-f-container{
+    width: max-content;
+    margin-left: 1.25em;
+}
+.t-or-f{
+    background-color: var(--primaryColor);
+    border-radius: 25rem;
+    padding: 0.85em 1.1em;
+    display: flex;
+}
+.t-or-f label{
+    width: 49%;
+    border-radius: 25rem;
+    border: 3px solid white;
+    font-size: 2em;
+    padding: 0.40em 0.9em;
+    color: white;
+    cursor: pointer;
+    font-family: 'museoSans bold';
+}
+.t-or-f label:last-child{
+    margin-left: 0.25em;
+}
+.t-or-f label.true.active{
+    background: white;
+    border-color: #BED731;
+    color: #BED731;
+}
+.t-or-f label.false.active{
+    background: white;
+    border-color: #FDB924;
+    color: #FDB924;
+}
+.new-fact-btn{
+    border: none;
+    background-color: var(--primaryColor);
+    color: white;
+    width: 100%;
+    font-size: 2.375em;
+    margin-top: 1.05em;
+    padding: 0.625em;
+    border-radius: 25rem;
+}
+.new-fact-btn span{
+    font-family: 'museoSans bold';
 }
 @media (min-width: 992px) {
     .order-lg-6 {
